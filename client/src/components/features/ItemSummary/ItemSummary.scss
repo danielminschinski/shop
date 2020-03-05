@@ -1,0 +1,59 @@
+@import '../../../styles/settings.scss';
+
+.item-summary {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-items: flex-end;
+    margin-bottom: $base-size;
+    background-color: darken($color-text-bright, 3%);
+    padding: $base-size;
+    transition: .2s;
+    cursor: pointer;
+
+    .item-summary-card {
+        display: block;
+        border: none;
+        background-color: transparent;
+
+        .badge {
+            display: inline;
+
+            &:empty {
+                display: inline-block;
+                background-color: transparent;
+            }
+        }
+
+        img {
+            width: 100%;
+            height: 30rem;
+            object-fit: cover;
+            margin-top: $base-size * 0.5;
+            margin-bottom: $base-size * 0.5;
+
+            @media(max-width: 768px){
+                height: auto;
+            }
+        }
+
+        .card-body {
+            padding: 0;
+        }
+    }
+}
+
+.item-summary:hover {
+    transition: .2s;
+    background-color: darken($color-text-bright, 6%);
+}
+
+.col {
+    flex-basis: unset !important;
+    flex-grow: 0 !important;
+    width: 49% !important;
+
+    @media(max-width: 768px) {
+        width: 100% !important;
+    }
+}

@@ -1,0 +1,41 @@
+@import '../../../styles/settings.scss';
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+
+    
+    &_list {
+        display: flex;
+        justify-content: flex-end;
+        list-style-type: none;
+        font-size: $base-size * 1.5;
+        margin-bottom: 0;
+        padding-left: 0;
+
+        &_item {
+            display: flex;
+            width: $base-size * 2;
+            height: $base-size * 2;
+            margin: $base-size;
+            justify-content: flex-end;
+            align-items: center;
+            cursor: pointer;
+            border-radius: $radius;
+            transition: .2s;
+            color: $color-text-light;
+    
+            &:hover {
+                color: $color-text;
+            }
+        
+            &--active {
+                color: $color-primary;
+            }
+
+            &:last-of-type {
+                margin-right: 0;
+            }
+        }
+    }
+}
