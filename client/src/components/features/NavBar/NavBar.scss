@@ -1,0 +1,37 @@
+@import '../../../styles/settings.scss';
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    margin-bottom: $base-size * 2;
+
+    @media(max-width: 768px) {
+        margin-bottom: $base-size;
+    }
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 0;
+
+    @media(max-width: 768px) {
+        padding-left: 0 !important;
+    }
+
+    .main-menu {
+        margin: 0;
+
+        i {
+            margin: 0 $base-size;
+        }
+
+        @media(max-width: 768px) {
+            li:first-of-type {
+                margin-left: 0;
+            }
+        }
+    }
+}

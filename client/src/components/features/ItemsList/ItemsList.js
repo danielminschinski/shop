@@ -8,6 +8,7 @@ const ItemsList = ({ items }) => (
     <div className='items-list'>
         {items.map(item => <ItemSummary key={item.id} {...item} />)}
     </div>
+    
 );
 
 ItemsList.propTypes = {

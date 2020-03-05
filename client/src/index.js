@@ -6,19 +6,17 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/global.scss';
 import 'animate.css/animate.min.css';
 
 const Root = () => (
     <Provider store={store}>
-        <Router>    
-<           App />
+        <Router>
+            <App />
         </Router>
     </Provider>
-        
 );
 
 
 ReactDOM.render(<Root />, document.getElementById('root'));
-
-

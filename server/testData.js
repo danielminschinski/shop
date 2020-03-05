@@ -1,7 +1,6 @@
 const Item = require('./models/item.model');
 
 const loadTestData = async () => {
-
     const data = [
         {
             id : "123",

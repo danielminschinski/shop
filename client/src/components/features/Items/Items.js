@@ -1,6 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { witchRouter, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import ItemsList from '../ItemsList/ItemsList';
 import SortingItemsContainer from '../../features/SortingItems/SortingItemsContainer';
@@ -12,7 +12,6 @@ import { Container } from 'reactstrap';
 import './Items.scss';
 
 class Items extends React.Component {
-
     componentDidMount() {
         const { loadItemsByPage, initialPage, itemsPerPage } = this.props;
         loadItemsByPage(initialPage, itemsPerPage);
@@ -22,9 +21,10 @@ class Items extends React.Component {
         const { loadItemsByPage, itemsPerPage } = this.props;
         loadItemsByPage(page, itemsPerPage);
     }
+
     render() {
         const { items, request, pages, presentPage } = this.props;
-        const { loadItemsPage} = this;
+        const { loadItemsPage } = this;
         let { pagination } = this.props;
 
         if(pagination === undefined) {
@@ -36,11 +36,11 @@ class Items extends React.Component {
                 <div className='items-list-container'>
                     <SortingItemsContainer />
                     <Container className='items-list-body'>
-                        <ItemsList items={items} className='items-list' />
+                        <ItemsList items={items} className='items-list'/>
                         { pagination && <Pagination pages={pages} onPageChange={loadItemsPage} initialPage={presentPage} />}
                     </Container>
                 </div>
-            );
+            )
         } else if(request.pending === true || request.success === null) {
             return <Spinner />
         } else if(request.pending === false && request.success === true && items.length === 0) {
@@ -48,9 +48,7 @@ class Items extends React.Component {
         } else if(request.pending === false && request.error !== null) {
             return <Alert variant='error' children=''>{request.error}</Alert>
         };
-        
     }
-
 };
 
 Items.propTypes = {

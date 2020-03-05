@@ -8,7 +8,7 @@ const Item = new Schema ({
     tag: { type: 'String' },
     description: { type: 'String', required: true },
     picture: { type: 'String', required: true },
-    quantity: { type: 'Number', required: true },
+    quantity: { type: 'Number', required: true }
 });
 
-module.export = mongoose.model('Item', Item);
+module.exports = mongoose.model('Item', Item);

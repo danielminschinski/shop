@@ -11,7 +11,7 @@
             width: 100% !important;
         }
     }
-    
+
     &.container {
         padding: 0;
     }
@@ -30,9 +30,9 @@
             width: 100%;
             object-fit: cover;
             outline: solid 1px $color-text-light;
-            }
         }
-
+    }
+    
     .single-item-desc {
         padding-left: $base-size * 2;
         padding-right: 0;
@@ -58,5 +58,6 @@
             padding: 0;
             width: 100%;
         }
+
     }
 }

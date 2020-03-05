@@ -32,13 +32,13 @@
             margin-top: $base-size * 0.5;
             margin-bottom: $base-size * 0.5;
 
-            @media(max-width: 768px){
+            @media(max-width: 768px) {
                 height: auto;
             }
         }
 
         .card-body {
-            padding: 0;
+            padding: 0;  
         }
     }
 }

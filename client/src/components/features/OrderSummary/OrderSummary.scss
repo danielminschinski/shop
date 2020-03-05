@@ -1,0 +1,23 @@
+@import '../../../styles/settings.scss';
+
+.order-summary {
+
+    .page-title {
+        margin-bottom: $base-size * 2;
+    }
+
+    .order-table {
+        border-bottom: 2px solid;
+        border-color: #dee2e6;
+
+        thead {
+            font-size: $base-size * 1.5;
+        }
+    }
+
+    .section-title {
+        font-size: $base-size * 1.5;
+        text-align: right;
+        margin-top: $base-size * 2;
+    }
+}

@@ -6,7 +6,7 @@ import { Col, Card, Badge, CardImg, CardBody, CardTitle, CardSubtitle } from 're
 import './ItemSummary.scss';
 
 const ItemSummary = ({ id, name, price, tag, picture }) => (
-
+    
     <Col className="item-summary">
         <NavLink to={`/items/${id}`} >
             <Card className="item-summary-card">
@@ -14,11 +14,13 @@ const ItemSummary = ({ id, name, price, tag, picture }) => (
                 <CardImg src={`${picture}`} alt=''/>
                 <CardBody>
                     <CardTitle>{name}</CardTitle>
-                    <CardSubtitle>${price}</CardSubtitle>
+                    <CardSubtitle>£{price}</CardSubtitle>
                 </CardBody>
             </Card>
         </NavLink>
     </Col>
+    
+
 );
 
 ItemSummary.propTypes = {

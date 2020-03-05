@@ -1,39 +1,41 @@
 @import '../../../styles/settings.scss';
 
 .sorting-container {
-    margin-left: $base-size * 4;
+  margin-right: $base-size * 4;
 
-    @media(max-width: 768px) {
-        margin-right: 0;
-        margin-bottom: $base-size;
+  @media(max-width: 768px) {
+    margin-right: 0;
+    margin-bottom: $base-size;
+  }
+
+  h2 {
+    margin-top: 0;
+  }
+  
+  .sorting-options-list {
+    list-style-type: none;
+    padding-left: 0;
+    
+
+    li {
+      display: flex;
+      align-items: center;
+      line-height: 2;
+
+      @media(max-width: 768px) {
+        justify-content: flex-start;
+      }
+
+      p {
+        padding-left: $base-size;
+        margin-bottom: 0;
+      }
+
+      &:hover {
+        cursor: pointer;
+        transition: 0.2;
+        color: $color-text;
+      }
     }
-
-    h2 {
-        margin-top: 0;
-    }
-
-    .sorting-options-list {
-        list-style-type: none;
-        padding-left: 0;
-
-        li {
-            display: flex;
-            align-items: center;
-            line-height: 2;
-
-            @media(max-width: 768px){
-                justify-content: flex-start;
-            }
-            p {
-                padding-left: $base-size;
-                margin-bottom: 0;
-            }
-
-            &:hover {
-                cursor: pointer;
-                transition: 0.2;
-                color: $color-text;
-            }
-        }
-    }
+  }
 }

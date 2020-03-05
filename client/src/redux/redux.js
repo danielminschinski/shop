@@ -1,25 +1,28 @@
 import axios from 'axios';
 import { API_URL, BASE_URL } from '../config';
 
-//action name creator
-
+// ACTION NAME CREATOR
 const reducerName = 'items';
 const createActionName = name => `app/${reducerName}/${name}`;
 
-//selectors
-export const getItems = ({ items }) => items.data; 
+// SELECTORS
+export const getItems = ({ items }) => items.data;
 export const getRequest = ({ items }) => items.request;
-export const getSingleItem = ({ items }) => items.request;
+export const getSingleItem = ({ items }) => items.singleItem;
 
-export const getPages = ({ items }) => Math.ceil(items.amount / items.items.itemsPerPage);
+export const getPages = ({ items }) => Math.ceil(items.amount / items.itemsPerPage);
 export const getPresentPage = ({ items }) => items.presentPage;
 
-export const getItemsSort = ({ items }) => {
+export const getItemsSort = ({ items }) => { 
+
     const sortedItems = [...items.data].sort((a, b) => {
-        if(a[items.key] > b[items.key]) return items.direction === 'asc' ? 1 : -1;
-        if(a[items.key] < b[items.key]) return items.direction === 'asc' ? -1 : 1;
+
+        if (a[items.key] > b[items.key]) return items.direction === 'asc' ? 1 : -1;
+        if (a[items.key] < b[items.key]) return items.direction === 'asc' ? -1 : 1;
         return 0;
+
     });
+
     return sortedItems;
 };
 
@@ -28,8 +31,7 @@ export const getCart = ({ items }) => items.cart;
 export const getTotalPrice = ({ items }) => items.totalPrice;
 export const getDiscountStatus = ({ items }) => items.discountStatus;
 
-
-//actions
+//ACTIONS
 export const LOAD_ITEMS = createActionName('LOAD_ITEMS');
 export const LOAD_SINGLE_ITEM = createActionName('LOAD_SINGLE_ITEM');
 export const LOAD_ITEMS_PAGE = createActionName('LOAD_ITEMS_PAGE');
@@ -47,11 +49,9 @@ export const MINUS_ITEM_QUANTITY = createActionName('MINUS_ITEM_QUANTITY');
 export const CALCULATE_PRICE = createActionName('CALCULATE_PRICE');
 export const ADD_DISCOUNT_CODE = createActionName('ADD_DISCOUNT_CODE');
 
-
-export const loadItems = payload => ({ payload, type: LOAD_ITEMS });
+export const loadItems = payload => ({ payload, type: LOAD_ITEMS});
 export const loadSingleItem = payload => ({ payload, type: LOAD_SINGLE_ITEM });
 export const loadItemsByPage = payload => ({ payload, type: LOAD_ITEMS_PAGE });
-
 
 export const startRequest = () => ({ type: START_REQUEST });
 export const endRequest = () => ({ type: END_REQUEST });
@@ -66,8 +66,8 @@ export const minusItemQuantity = id => ({ id, type: MINUS_ITEM_QUANTITY });
 export const calculatePrice = () => ({ type: CALCULATE_PRICE });
 export const addDiscountCode = () => ({ type: ADD_DISCOUNT_CODE });
 
-//initial state
 
+//INITIAL STATE
 const initialState = {
     data: [],
     singleItem: [],
@@ -85,17 +85,22 @@ const initialState = {
     totalPrice: 0,
     discount: 1,
     discountStatus: false,
-}
+};
 
-//reducer
-
-export default function reducer(statePart = initialState, action = {}){
+//REDUCER
+export default function reducer(statePart = initialState, action = {}) {
     switch (action.type) {
+
         case LOAD_ITEMS:
+
             return { ...statePart, data: action.payload };
+
         case LOAD_SINGLE_ITEM:
+
             return { ...statePart, singleItem: action.payload };
+
         case LOAD_ITEMS_PAGE:
+
             return {
                 ...statePart,
                 itemsPerPage: action.payload.itemsPerPage,
@@ -103,35 +108,50 @@ export default function reducer(statePart = initialState, action = {}){
                 amount: action.payload.amount,
                 data: [...action.payload.items],
             };
+
         case START_REQUEST:
-            return { ...statePart, request: { panding: true, error: null, success: null } };
+
+            return { ...statePart, request: { pending: true, error: null, success: null }};
+        
         case END_REQUEST:
-            return { ...statePart, request: { panding: false, error: null, success: true } };
+
+            return { ...statePart, request: {pending: false, error: null, success: true }};
+        
         case ERROR_REQUEST:
-            return { ...statePart, request: { panding: false, error: action.error, success: false } };
+
+            return { ...statePart, request: { pending: false, error: action.error, success: false }};
+        
         case RESET_REQUEST:
-            return { ...statePart, request: { pending: false, error: null, success: null} };
+
+            return { ...statePart, request: { pending: false, error: null, success: null }};    
+        
         case SORT_ITEMS:
+
             return {
                 ...statePart,
                 key: action.payload.key,
                 direction: action.payload.direction,
             };
+
         case ADD_TO_CART:
+
             const addedItem = action.payload;
             addedItem.quantity += 1;
-
+            
             return {
                 ...statePart,
                 cart: statePart.cart.concat(addedItem)
-            }
+            };
+
         case DELETE_FROM_CART:
+            
             const deleteItemCart = statePart.cart.filter(item => item.id !== action.payload);
 
             return { ...statePart, cart: deleteItemCart};
-        
+
         case ADD_ITEM_QUANTITY:
-            const plusItem = statePart.cart.find(item => item.id !== action.id);
+
+            const plusItem = statePart.cart.find(item => item.id === action.id);
             plusItem.quantity += 1;
             const plusItemCart = statePart.cart.map(item => item.id === action.id ? plusItem : item);
             
@@ -139,8 +159,9 @@ export default function reducer(statePart = initialState, action = {}){
                 ...statePart,
                 cart: plusItemCart,
             };
-        
+
         case MINUS_ITEM_QUANTITY:
+
             const minusItem = statePart.cart.find(item => item.id === action.id);
             minusItem.quantity -= 1;
             const minusItemCart = statePart.cart.map(item => item.id === action.id ? minusItem : item);
@@ -167,6 +188,7 @@ export default function reducer(statePart = initialState, action = {}){
                 itemsTotalPrice = itemsTotalPrice.reduce((previousPrice, newPrice) => previousPrice + newPrice);
                 const totalPriceWithDiscount = statePart.discountStatus ? itemsTotalPrice * statePart.discount : itemsTotalPrice;
                 roundedPrice = parseFloat(totalPriceWithDiscount.toFixed(2));
+
             } else {
                 roundedPrice = 0;
             }
@@ -181,32 +203,35 @@ export default function reducer(statePart = initialState, action = {}){
     }
 };
 
-//thunks
-
+//THUNKS
 export const loadItemsRequest = () => {
     return async dispatch => {
+
         dispatch(startRequest());
         try {
+
             let res = await axios.get(`${BASE_URL}${API_URL}/items`);
-            dispatch(loadItems(res.data));
+            dispatch(loadItems(res.data));  
             dispatch(endRequest());
-        } catch (e) {
+
+		} catch (e) {
             dispatch(errorRequest(e.message));
-        }
-    };
+		}
+	};
 };
 
 export const loadSingleItemRequest = (id) => {
     return async dispatch => {
-       dispatch(startRequest());
-       
-       try {
-           let res = await axios.get(`${BASE_URL}${API_URL}/items/${id}`);
-           dispatch(loadSingleItem(res.data));
-           dispatch(endRequest());
-       } catch(e) {
-           dispatch(errorRequest(e.message));
-       };
+        
+        dispatch(startRequest());
+
+        try {
+            let res = await axios.get(`${BASE_URL}${API_URL}/items/${id}`);
+            dispatch(loadSingleItem(res.data));
+            dispatch(endRequest());
+        } catch(e) {
+            dispatch(errorRequest(e.message));
+        };
     }
 };
 
@@ -229,6 +254,7 @@ export const loadItemsByPageRequest = (page, itemsPerPage) => {
 
             dispatch(loadItemsByPage(payload));
             dispatch(endRequest());
+
         } catch(e) {
             dispatch(errorRequest(e.message));
         }

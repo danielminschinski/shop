@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { sortItems, getItemsSort } from '../../../redux/redux';
 import SortingItems from './SortingItems';
 
-const SortingItemsContainer = ({ sortItems}) => {
+const SortingItemsContainer = ({ sortItems }) => {
     return <SortingItems sortItems={sortItems} />
 };
 

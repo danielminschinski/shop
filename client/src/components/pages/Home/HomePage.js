@@ -7,8 +7,7 @@ import './HomePage.scss';
 const HomePage = () => (
     <div>
         <ItemsContainer />
-
     </div>
-)
+);
 
 export default HomePage;

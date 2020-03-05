@@ -3,16 +3,16 @@ const Item = require('../models/item.model');
 // get all items
 
 exports.getItems = async (req, res) => {
-
+    
     try {
         res.status(200).json(await Item.find());
+    
     } catch(err) {
         res.status(500).json(err);
     }
 };
 
-//get single item
-
+//get single item 
 exports.getSingleItem = async (req, res) => {
     try {
         res.status(200).json(await Item.findOne( {id: req.params.id} ));
@@ -24,6 +24,7 @@ exports.getSingleItem = async (req, res) => {
 //get items by range
 
 exports.getItemsByRange = async function (req, res) {
+
     try {
         let { startAt, limit } = req.params;
 
@@ -35,8 +36,9 @@ exports.getItemsByRange = async function (req, res) {
 
         res.status(200).json({
             items,
-            amount,
+            amount,    
         });
+    
     } catch(err) {
         res.status(500).json(err);
     }

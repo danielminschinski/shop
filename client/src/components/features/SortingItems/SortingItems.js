@@ -5,7 +5,9 @@ import SectionTitle from '../../common/SectionTitle/SectionTitle';
 
 import './SortingItems.scss';
 
+
 const SortingItems = ({ sortItems }) => {
+
     const handleSortItems = (key, direction) => {
         sortItems({ key, direction });
     };
@@ -16,7 +18,7 @@ const SortingItems = ({ sortItems }) => {
             <ul className='sorting-options-list'>
                 <li onClick={() => handleSortItems('name', 'asc')}>
                     <i className="fas fa-arrow-up"></i>
-                    <p>Name</p>
+                    <p>Name</p> 
                 </li>
                 <li onClick={() => handleSortItems('name', 'desc')}>
                     <i className="fas fa-arrow-down"></i>
@@ -28,7 +30,7 @@ const SortingItems = ({ sortItems }) => {
                 </li>
                 <li onClick={() => handleSortItems('price', 'desc')}>
                     <i className="fas fa-arrow-down"></i>
-                    <p>Price</p>
+                    <p>Price</p>  
                 </li>
             </ul>
         </div>

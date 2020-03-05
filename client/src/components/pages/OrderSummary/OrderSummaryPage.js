@@ -1,10 +1,10 @@
 import React from 'react';
+import OrderSummaryContainer from '../../features/OrderSummary/OrderSummaryContainer';
 
 const OrderSummaryPage = () => (
     <div>
-        <h1>Summary</h1>
+        <OrderSummaryContainer />
     </div>
-    
 );
 
 export default OrderSummaryPage;

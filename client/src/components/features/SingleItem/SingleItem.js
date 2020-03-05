@@ -10,9 +10,11 @@ import SmallTitle from '../../common/SmallTitle/SmallTitle';
 import Button from '../../common/Button/Button';
 
 import { Container, Col, Modal, ModalHeader, ModalFooter, Badge } from 'reactstrap';
-import './SingleItems.scss';
+import './SingleItem.scss';
+
 
 class SingleItem extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -37,57 +39,63 @@ class SingleItem extends React.Component {
 
     componentDidMount() {
         const { loadSingleItem, match } = this.props;
-        loadSingleItem(match.params.id);
+        loadSingleItem(match.params.id); 
     }
 
     handleAddToCart = () => {
-        const { items, cart, addToCart, addItemQuatity, calculatePrice, match } = this.props;
+        const { items, cart, addToCart, addItemQuantity, calculatePrice, match } = this.props;
         const isInCart = cart.filter(item => item.id === match.params.id);
 
         if(isInCart.length === 0) {
             addToCart(items);
         } else {
-            addItemQuatity(match.params.id);
+            addItemQuantity(match.params.id);
         };
 
         calculatePrice();
         this.toggle();
     }
 
-    render(){
+    render() {
         const { items, request } = this.props;
 
-        if(request.pending === false && request.success === true ) {
+        if(request.pending === false && request.success === true) {
+            
+
             return (
-                <Container className='single-item-container'>
+                <Container className='single-item-container'> 
                     <Col className='single-item-photo'>
                         <img src={`${items.picture}`} alt='' />
                     </Col>
                     <Col className='single-item-desc'>
-                        <Badge color='secondary'>{items.tag}</Badge>
+                        <Badge color="secondary">{items.tag}</Badge>
                         <SmallTitle>{items.name}</SmallTitle>
-                        <SectionTitle>${items.price}</SectionTitle>
+                        <SectionTitle>£{items.price}</SectionTitle>
                         <HtmlBox>{items.description}</HtmlBox>
 
-                        <Button variant='primary' onClick={this.hangleAddToCart}>Add to cart</Button>
+                        <Button variant='primary' onClick={this.handleAddToCart}>Add to cart</Button>
                         <Modal isOpen={this.state.isModalOpen} toggle={this.toggle}>
                             <ModalHeader toggle={this.toggle}>Item has been added to cart!</ModalHeader>
                             <ModalFooter>
                                 <Link to='/'>
-                                    <Button variant="primary" onClick={this.toggle}>Continue shopping</Button>
+                                    <Button variant='primary' onClick={this.toggle}>Continue shopping</Button>
                                 </Link>
                                 <Link to='/cart'>
                                     <Button variant='secondary' onClick={this.toggle}>Go to cart</Button>
                                 </Link>
-                            </ModalFooter>
+                            </ModalFooter>  
                         </Modal>
+
                     </Col>
                 </Container>
-            );
+                
+            );  
+
         } else if(request.pending === true) {
             return <Spinner />
+
         } else if(request.pending === false && request.error != null) {
-            return <Alert variant='error'>{request.error}</Alert>
+            return <Alert variant='error'>{request.error}</Alert> 
         } else {
             return <Alert variant='error'>Ups! Something went wrong :(</Alert>
         };
