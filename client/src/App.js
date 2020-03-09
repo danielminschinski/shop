@@ -20,7 +20,7 @@ class App extends React.Component {
 		return (
 			<MainLayout >
 				<Switch>
-
+				
 					<Route exact path='/' component={Home} />
 					<Route exact path='/faq' component={Questions} />
 					<Route exact path='/contact' component={Contact} />
